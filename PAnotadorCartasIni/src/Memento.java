@@ -1,4 +1,5 @@
 
 public class Memento {
-	//Memento Class
+	//Memento Class.
+	private String article;
 }

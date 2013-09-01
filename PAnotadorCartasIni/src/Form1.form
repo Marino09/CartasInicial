@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1">
+  <grid id="e9d12" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="10" y="10" width="1480" height="610"/>
+    </constraints>
+    <properties>
+      <name value="null.contentPane"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="b9e12" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="8dc71" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="Primer entregable"/>
+            </properties>
+          </component>
+          <component id="fe6a6" class="javax.swing.JTextArea">
+            <constraints/>
+            <properties>
+              <columns value="60"/>
+              <rows value="40"/>
+              <text value=""/>
+            </properties>
+            <clientProperties>
+              <caretAspectRatio class="java.lang.Float" value="0.04"/>
+            </clientProperties>
+          </component>
+          <component id="f2f58" class="javax.swing.JTextArea">
+            <constraints/>
+            <properties>
+              <columns value="5"/>
+              <rows value="5"/>
+              <text value=""/>
+            </properties>
+            <clientProperties>
+              <caretAspectRatio class="java.lang.Float" value="0.04"/>
+            </clientProperties>
+          </component>
+          <component id="6d018" class="javax.swing.JTextArea">
+            <constraints/>
+            <properties>
+              <columns value="5"/>
+              <rows value="5"/>
+              <text value=""/>
+            </properties>
+            <clientProperties>
+              <caretAspectRatio class="java.lang.Float" value="0.04"/>
+            </clientProperties>
+          </component>
+          <component id="f0ff0" class="javax.swing.JButton">
+            <constraints/>
+            <properties>
+              <text value="salvar"/>
+            </properties>
+          </component>
+          <component id="c6429" class="javax.swing.JButton">
+            <constraints/>
+            <properties>
+              <text value="Jugada anterior"/>
+            </properties>
+          </component>
+          <component id="312f3" class="javax.swing.JButton">
+            <constraints/>
+            <properties>
+              <text value="Jugada siguiente"/>
+            </properties>
+          </component>
+          <component id="e102" class="javax.swing.JButton">
+            <constraints/>
+            <properties>
+              <text value="Abrir"/>
+            </properties>
+          </component>
+          <component id="2e79d" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="Ahora Antes"/>
+            </properties>
+          </component>
+          <hspacer id="aae31">
+            <constraints/>
+          </hspacer>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

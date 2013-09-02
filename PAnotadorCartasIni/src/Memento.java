@@ -1,14 +1,14 @@
 
 public class Memento {
 	//Memento Class.
-	private String hand;
+	private Hand hand;
 	
-	public Memento(String handSave)
+	public Memento(Hand handSave)
 	{
 		hand = handSave;
 	}
 	
-	public String getSavedHand()
+	public Hand getSavedHand()
 	{
 		return hand;
 	}

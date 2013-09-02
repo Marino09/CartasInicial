@@ -149,8 +149,8 @@ public class GUI extends JFrame {
                 } else if (e.getSource() == undoBut) {
                     if (currentHand >= 1) {
                         currentHand--;
-                        String textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
-                        theHand.setText(textBoxString);
+                        Hand textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
+                        theHand.setText(textBoxString.toString());
                         redoBut.setEnabled(true);
                     } else {
                         undoBut.setEnabled(false);
@@ -159,8 +159,8 @@ public class GUI extends JFrame {
                     if ((saveFiles - 1) > currentHand) {
                         currentHand++;
 
-                        String textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
-                        theHand.setText(textBoxString);
+                        Hand textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
+                        theHand.setText(textBoxString.toString());
                         undoBut.setEnabled(true);
                     } else {
                         redoBut.setEnabled(false);

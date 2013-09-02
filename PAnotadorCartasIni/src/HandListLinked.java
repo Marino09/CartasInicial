@@ -42,6 +42,12 @@ public class HandListLinked {
 		return temp;
 	}
 	
+	public void Clear(){
+		this.Head = null;
+		this.Tail = null;
+		this.size = 0;
+	}
+	
 	
 	
 	public Node getHead() {

@@ -13,25 +13,26 @@ public class AnotadorCartas extends JFrame {
 	}
 	//The save button shouldn't be here, just for clarity: Fix it!
 	private JButton  undoBut, redoBut, openBut;
-	private JTextArea theHand, pointNow;
+	private JTextArea theHand, scoreNow;
 
 	HandListLinked list = new HandListLinked();
 	Node actual;
-	String played = "";
+	String playedCards = "";
 	
 	
-	int actualPoint = 0;
+	int actualScore = 0;
+	private JLabel lblNewLabel;
 	
 	public AnotadorCartas()
 	{
-		this.setSize(600, 600);
+		this.setSize(450, 300);
 		this.setTitle("Anotador de jugadas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 		
 		JPanel jp = new JPanel();
-        this.theHand = new JTextArea(20, 30);
-        theHand.setFont(new Font("Dialog", Font.PLAIN, 16));
+        this.theHand = new JTextArea(5, 25);
+        theHand.setFont(new Font("Arial", Font.BOLD, 17));
         theHand.setWrapStyleWord(true);
 
         jp.add(theHand);
@@ -48,19 +49,20 @@ public class AnotadorCartas extends JFrame {
 		redoBut = new JButton("Jugada siguiente");
 		redoBut.setEnabled(false);
 		redoBut.addActionListener(redoListener);
-		
-		openBut = new JButton("Abrir");
-		openBut.addActionListener(openListener);
-	    
-		jp.add(openBut);
 		jp.add(undoBut);
 		jp.add(redoBut);
         getContentPane().add(jp, BorderLayout.CENTER );
         
+        openBut = new JButton("Abrir");
+        openBut.addActionListener(openListener);
+        
+        jp.add(openBut);
+        
         lblNewLabel = new JLabel("Puntuacion");
         jp.add(lblNewLabel);
-        this.pointNow = new JTextArea(4,4);
-        jp.add(pointNow);
+        this.scoreNow = new JTextArea(2,5);
+        scoreNow.setFont(new Font("Arial", Font.BOLD, 16));
+        jp.add(scoreNow);
         setLocationRelativeTo( null );
         this.setVisible(true);
 		
@@ -74,6 +76,9 @@ public class AnotadorCartas extends JFrame {
             
             try
             {
+            	list.Clear();
+            	playedCards = "";
+            	actualScore = 0;
                 fr = new FileReader( path );
                 br = new BufferedReader( fr );
                 
@@ -82,9 +87,10 @@ public class AnotadorCartas extends JFrame {
                 
                 while( br.ready() && cont < 13 ){
                 	cont++;
-                	linea = br.readLine();
-                    Hand newHand = new Hand(linea );
+                	linea = br.readLine().toUpperCase();
+                    Hand newHand = new Hand(linea, playedCards);
                     list.add(newHand);
+                    playedCards += linea + " ";
                 }
 
             }catch( Exception e ){  }
@@ -115,7 +121,9 @@ public class AnotadorCartas extends JFrame {
                             	this.readFile(path);
                             	actual = list.getHead();
                             	redoBut.setEnabled(true);
+                            	actualScore += actual.getHand().getScoreHand();
                             	theHand.setText(actual.handToString());
+                            	scoreNow.setText(Integer.toString(actualScore));
 
                             } catch (Exception ex) {}
 
@@ -130,12 +138,16 @@ public class AnotadorCartas extends JFrame {
                 	if (!redoBut.isEnabled()){
                 		redoBut.setEnabled(true);
                 	}
+                	
+                	actualScore -= actual.getHand().getScoreHand();
                 	actual = actual.getPrev();
                 	theHand.setText(actual.handToString());
+                	scoreNow.setText(Integer.toString(actualScore));
+
+                	
                 	if (actual.getPrev() == null) {
                 		undoBut.setEnabled(false);
             		}
-                	
                 	
                 } else if (e.getSource() == redoBut) {
                 	if (!undoBut.isEnabled()){
@@ -143,9 +155,14 @@ public class AnotadorCartas extends JFrame {
                 	}
                 	actual = actual.getNext();
                 	theHand.setText(actual.handToString());
-                		if (actual.getNext() == null) {
-                    		redoBut.setEnabled(false);
-                		}
+                	
+                	if (actual.getNext() == null) {
+                		redoBut.setEnabled(false);
+                	}
+                	else{
+                    	actualScore += actual.getHand().getScoreHand();
+                    	scoreNow.setText(Integer.toString(actualScore));
+                	}
                 }
 		}
 	}

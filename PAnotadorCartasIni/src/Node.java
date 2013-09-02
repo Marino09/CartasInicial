@@ -12,6 +12,11 @@ public class Node {
 		this.prev = prev;
 	}
 	
+	public String getString (){
+		
+		return this.hand.getHandGame();
+	}
+	
 	public Hand getHand() {
 		return hand;
 	}

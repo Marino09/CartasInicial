@@ -6,28 +6,22 @@ import java.io.FileReader;
 
 import javax.swing.*;
 
-public class GUI extends JFrame {
-
-	/**
-	 * 
-	 */
-	//private static final long serialVersionUID = 1L;
+public class AnotadorCartas extends JFrame {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new GUI();
+		new AnotadorCartas();
 	}
 	//The save button shouldn't be here, just for clarity: Fix it!
-	private JButton saveBut, undoBut, redoBut, openBut;
+	private JButton  undoBut, redoBut, openBut;
 	private JTextArea theHand, pointNow;
 
-	CareTaker careTaker = new CareTaker();
-	Originator originator = new Originator();
+	HandListLinked list = new HandListLinked();
+	Node actual;
 	
 	int saveFiles = 0, currentHand = 0;
 	private JLabel lblNewLabel;
 	
-	public GUI()
+	public AnotadorCartas()
 	{
 		this.setSize(600, 600);
 		this.setTitle("Anotador de jugadas");
@@ -48,19 +42,17 @@ public class GUI extends JFrame {
         ButtonListener openListener = new ButtonListener();
 		
 		undoBut = new JButton("Jugada anterior");
+		undoBut.setEnabled(false);
 		undoBut.addActionListener(undoListener);
 		
 		redoBut = new JButton("Jugada siguiente");
+		redoBut.setEnabled(false);
 		redoBut.addActionListener(redoListener);
 		
 		openBut = new JButton("Abrir");
 		openBut.addActionListener(openListener);
+	    
 		jp.add(openBut);
-		
-		saveBut = new JButton("salvar");
-		saveBut.addActionListener(saveListener);
-		
-		jp.add(saveBut);
 		jp.add(undoBut);
 		jp.add(redoBut);
         getContentPane().add(jp, BorderLayout.CENTER );
@@ -76,53 +68,39 @@ public class GUI extends JFrame {
 	
 	class ButtonListener implements ActionListener
 	{
-        //-------------------------Se obtiene el contenido del Archivo----------------//
-        public String getArchivo( String ruta ){
+        public void readFile( String path ){
             FileReader fr = null;
             BufferedReader br = null;
-            //Cadena de texto donde se guardara el contenido del archivo
-            String contenido = "";
+            
             try
             {
-                //ruta puede ser de tipo String o tipo File
-                fr = new FileReader( ruta );
+                fr = new FileReader( path );
                 br = new BufferedReader( fr );
-
+                
                 String linea;
-                //Obtenemos el contenido del archivo linea por linea
-                while( ( linea = br.readLine() ) != null ){
-                    contenido += linea + "\n";
+                int cont = 0;
+                
+                while( br.ready() && cont < 13 ){
+                	cont++;
+                	linea = br.readLine();
+                    Hand newHand = new Hand(linea);
+                    list.add(newHand);
                 }
 
             }catch( Exception e ){  }
-            //finally se utiliza para que si todo ocurre correctamente o si ocurre
-            //algun error se cierre el archivo que anteriormente abrimos
+
             finally
             {
                 try{
                     br.close();
                 }catch( Exception ex ){}
             }
-            return contenido;
+            
         }
-
+        
 		public void actionPerformed(ActionEvent e)
 		{
-			if(e.getSource() == saveBut)
-			{
-				String textInTextArea = theHand.getText();
-				originator.set(textInTextArea);
-				careTaker.addMemento(originator.storeInMemento());
-				saveFiles++;
-				currentHand++;
-				//this console print should be deleted, is just for Ernesto & Lucas
-				System.out.println("save files" + saveFiles);
-				
-				undoBut.setEnabled(true);
-			}
-
-            else {
-                if (e.getSource() == openBut) {
+			if (e.getSource() == openBut) {
                     JFileChooser fileChooser = new JFileChooser();
 
                     int selec = fileChooser.showOpenDialog(new JPanel());
@@ -134,39 +112,41 @@ public class GUI extends JFrame {
 
                         if (path.endsWith(".txt") ) {
                             try {
-                            String contenido = this.getArchivo(path);
-                            theHand.setText(contenido);
+                            	this.readFile(path);
+                            	actual = list.getHead();
+                            	redoBut.setEnabled(true);
+                            	theHand.setText(actual.getString());
 
                             } catch (Exception ex) {}
 
                         } else
                         {
-                            JOptionPane.showMessageDialog(null, "Solo archivos txt");
+                            JOptionPane.showMessageDialog(null, "Solo archivos .txt");
                         }
 
                     }
 
                 } else if (e.getSource() == undoBut) {
-                    if (currentHand >= 1) {
-                        currentHand--;
-                        Hand textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
-                        theHand.setText(textBoxString.toString());
-                        redoBut.setEnabled(true);
-                    } else {
-                        undoBut.setEnabled(false);
-                    }
+                	if (!redoBut.isEnabled()){
+                		redoBut.setEnabled(true);
+                	}
+                	actual = actual.getPrev();
+                	theHand.setText(actual.getString());
+                	if (actual.getPrev() == null) {
+                		undoBut.setEnabled(false);
+            		}
+                	
+                	
                 } else if (e.getSource() == redoBut) {
-                    if ((saveFiles - 1) > currentHand) {
-                        currentHand++;
-
-                        Hand textBoxString = originator.restoreFromMemento(careTaker.getMemento(currentHand));
-                        theHand.setText(textBoxString.toString());
-                        undoBut.setEnabled(true);
-                    } else {
-                        redoBut.setEnabled(false);
-                    }
+                	if (!undoBut.isEnabled()){
+                		undoBut.setEnabled(true);
+                	}
+                	actual = actual.getNext();
+                	theHand.setText(actual.getString());
+                		if (actual.getNext() == null) {
+                    		redoBut.setEnabled(false);
+                		}
                 }
-            }
 		}
 	}
 }

@@ -5,6 +5,12 @@ public class Hand {
 	private int pointHand;
 	private boolean valida = true;
 	
+	public Hand (String handGame)
+	{
+		this.handGame = handGame;
+	}
+	
+	
 	
 	public String getHandGame() {
 		return handGame;

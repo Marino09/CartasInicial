@@ -17,9 +17,10 @@ public class AnotadorCartas extends JFrame {
 
 	HandListLinked list = new HandListLinked();
 	Node actual;
+	String played = "";
 	
-	int saveFiles = 0, currentHand = 0;
-	private JLabel lblNewLabel;
+	
+	int actualPoint = 0;
 	
 	public AnotadorCartas()
 	{
@@ -36,7 +37,6 @@ public class AnotadorCartas extends JFrame {
         jp.add(theHand);
 
 		 	 	
-		ButtonListener saveListener = new ButtonListener();
 		ButtonListener undoListener = new ButtonListener();
 		ButtonListener redoListener = new ButtonListener();
         ButtonListener openListener = new ButtonListener();
@@ -83,7 +83,7 @@ public class AnotadorCartas extends JFrame {
                 while( br.ready() && cont < 13 ){
                 	cont++;
                 	linea = br.readLine();
-                    Hand newHand = new Hand(linea);
+                    Hand newHand = new Hand(linea );
                     list.add(newHand);
                 }
 
@@ -115,7 +115,7 @@ public class AnotadorCartas extends JFrame {
                             	this.readFile(path);
                             	actual = list.getHead();
                             	redoBut.setEnabled(true);
-                            	theHand.setText(actual.getString());
+                            	theHand.setText(actual.handToString());
 
                             } catch (Exception ex) {}
 
@@ -131,7 +131,7 @@ public class AnotadorCartas extends JFrame {
                 		redoBut.setEnabled(true);
                 	}
                 	actual = actual.getPrev();
-                	theHand.setText(actual.getString());
+                	theHand.setText(actual.handToString());
                 	if (actual.getPrev() == null) {
                 		undoBut.setEnabled(false);
             		}
@@ -142,7 +142,7 @@ public class AnotadorCartas extends JFrame {
                 		undoBut.setEnabled(true);
                 	}
                 	actual = actual.getNext();
-                	theHand.setText(actual.getString());
+                	theHand.setText(actual.handToString());
                 		if (actual.getNext() == null) {
                     		redoBut.setEnabled(false);
                 		}

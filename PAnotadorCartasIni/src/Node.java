@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.StringUtils;
+
 
 public class Node {
 	
@@ -12,9 +14,9 @@ public class Node {
 		this.prev = prev;
 	}
 	
-	public String getString (){
+	public String handToString (){
+		return StringUtils.join(hand.getHandGame(), " ");
 		
-		return this.hand.getHandGame();
 	}
 	
 	public Hand getHand() {

@@ -100,7 +100,6 @@ public class Hand {
 					 l = handGame[i].substring(0,1);
 					 n = handGame[i-1].substring(0,1);
 					}
-				System.out.println(cards.get(l)-1+" "+ cards.get(n));
 				if ( cards.get(l)-1 != cards.get(n) ){
 					straight= false;
 					break;

@@ -86,7 +86,7 @@ public class AnotadorCartas extends JFrame {
             try
             {
             	list.Clear();
-            	playedCards = "";
+            	playedCards = "";                	
             	actualScore = 0;
                 fr = new FileReader( path );
                 br = new BufferedReader( fr );

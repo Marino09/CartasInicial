@@ -22,6 +22,8 @@ public class AnotadorCartas extends JFrame {
 	
 	int actualScore = 0;
 	private JLabel lblNewLabel;
+	private JLabel label;
+	private JTextArea combinacion;
 	
 	public AnotadorCartas()
 	{
@@ -57,6 +59,13 @@ public class AnotadorCartas extends JFrame {
         openBut.addActionListener(openListener);
         
         jp.add(openBut);
+        
+        label = new JLabel("Combinacion");
+        jp.add(label);
+        
+        combinacion = new JTextArea(2, 5);
+        combinacion.setFont(new Font("Arial", Font.BOLD, 16));
+        jp.add(combinacion);
         
         lblNewLabel = new JLabel("Puntuacion");
         jp.add(lblNewLabel);
@@ -124,6 +133,8 @@ public class AnotadorCartas extends JFrame {
                             	actualScore += actual.getHand().getScoreHand();
                             	theHand.setText(actual.handToString());
                             	scoreNow.setText(Integer.toString(actualScore));
+                            	combinacion.setText(actual.getHand().getTypeOfHand());
+
 
                             } catch (Exception ex) {}
 
@@ -143,6 +154,7 @@ public class AnotadorCartas extends JFrame {
                 	actual = actual.getPrev();
                 	theHand.setText(actual.handToString());
                 	scoreNow.setText(Integer.toString(actualScore));
+                	combinacion.setText(actual.getHand().getTypeOfHand());
 
                 	
                 	if (actual.getPrev() == null) {
@@ -162,6 +174,7 @@ public class AnotadorCartas extends JFrame {
                 	else{
                     	actualScore += actual.getHand().getScoreHand();
                     	scoreNow.setText(Integer.toString(actualScore));
+                    	combinacion.setText(actual.getHand().getTypeOfHand());
                 	}
                 }
 		}

@@ -9,6 +9,7 @@ public class Hand {
 	private String [] handGame = new String[4];
 	private int scoreHand;
 	private boolean valida = true;
+	private String typeOfHand = ""; 
 	
 	public Hand (String handGame, String cards)
 	{
@@ -109,14 +110,22 @@ public class Hand {
 			
 			if (flush && straight){
 				scoreHand = 500;
+				typeOfHand = "Straight Flush";
+				
 			}else if (full)
 			{
 				scoreHand = 100;
+				typeOfHand = "Full House";
+
 			}else if (flush)
 			{
 				scoreHand = 10;
+				typeOfHand = "Flush";
+						
 			}else if (straight){
 				scoreHand = 300;
+				typeOfHand = "Straight";
+
 			}else{
 				scoreHand = -10;
 			}
@@ -129,6 +138,10 @@ public class Hand {
 	}
 	
 	
+	public String getTypeOfHand() {
+		return typeOfHand;
+	}
+
 	public String[] getHandGame() {
 		return handGame;
 	}

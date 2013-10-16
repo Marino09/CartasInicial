@@ -25,7 +25,6 @@ public class Hand {
 			this.valida = false;
 			this.handGame = new String [1] ;
 			this.handGame[0] = "Mano no valida";
-			System.out.println(HandGame);
 		}
 		
 		for (int i=0; i<4; i++){
@@ -131,7 +130,7 @@ public class Hand {
 			
 		}else 
 		{
-			scoreHand = -10;
+			scoreHand = 0;
 		}
 
 	}

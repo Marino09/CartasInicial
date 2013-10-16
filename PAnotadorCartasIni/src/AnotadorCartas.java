@@ -13,21 +13,17 @@ public class AnotadorCartas extends JFrame {
 	}
 	//The save button shouldn't be here, just for clarity: Fix it!
 	private JButton  undoBut, redoBut, openBut;
-	private JTextArea theHand, scoreNow;
+	private JTextArea theHand, scoreNow, combinacion, scoreActual;
+	private JLabel label,lblNewLabel, lblNewLabel1;;
 
 	HandListLinked list = new HandListLinked();
 	Node actual;
 	String playedCards = "";
-	
-	
 	int actualScore = 0;
-	private JLabel lblNewLabel;
-	private JLabel label;
-	private JTextArea combinacion;
 	
 	public AnotadorCartas()
 	{
-		this.setSize(450, 300);
+		this.setSize(400, 300);
 		this.setTitle("Anotador de jugadas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -67,11 +63,20 @@ public class AnotadorCartas extends JFrame {
         combinacion.setFont(new Font("Arial", Font.BOLD, 16));
         jp.add(combinacion);
         
-        lblNewLabel = new JLabel("Puntuacion");
+       
+        
+        lblNewLabel = new JLabel("Puntuacion Total");
         jp.add(lblNewLabel);
-        this.scoreNow = new JTextArea(2,5);
+        scoreNow = new JTextArea(2,5);
         scoreNow.setFont(new Font("Arial", Font.BOLD, 16));
         jp.add(scoreNow);
+        
+        lblNewLabel1 = new JLabel("Puntuacion Mano");
+        jp.add(lblNewLabel1);
+        scoreActual = new JTextArea(2, 5);
+        scoreActual.setFont(new Font("Arial", Font.BOLD, 16));
+        jp.add(scoreActual);
+        
         setLocationRelativeTo( null );
         this.setVisible(true);
 		
@@ -134,6 +139,7 @@ public class AnotadorCartas extends JFrame {
                             	theHand.setText(actual.handToString());
                             	scoreNow.setText(Integer.toString(actualScore));
                             	combinacion.setText(actual.getHand().getTypeOfHand());
+                            	scoreActual.setText(Integer.toString(actualScore));
 
 
                             } catch (Exception ex) {}
@@ -155,6 +161,8 @@ public class AnotadorCartas extends JFrame {
                 	theHand.setText(actual.handToString());
                 	scoreNow.setText(Integer.toString(actualScore));
                 	combinacion.setText(actual.getHand().getTypeOfHand());
+                	scoreActual.setText(Integer.toString(actual.getHand().getScoreHand()));
+
 
                 	
                 	if (actual.getPrev() == null) {
@@ -173,6 +181,7 @@ public class AnotadorCartas extends JFrame {
                 	}
                 	else{
                     	actualScore += actual.getHand().getScoreHand();
+                    	scoreActual.setText(Integer.toString(actual.getHand().getScoreHand()));
                     	scoreNow.setText(Integer.toString(actualScore));
                     	combinacion.setText(actual.getHand().getTypeOfHand());
                 	}

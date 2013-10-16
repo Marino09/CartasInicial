@@ -21,13 +21,14 @@ public class Hand {
 	private void validate(String Cards)
 	{
 		String HandGame = StringUtils.join(handGame, " ");
-		if (HandGame.length() > 15 || HandGame.length() < 11) {
+		if ((HandGame.length() > 15 || HandGame.length() < 11 ) ) {
 			this.valida = false;
 			this.handGame = new String [1] ;
 			this.handGame[0] = "Mano no valida";
+			return;
 		}
 		
-		for (int i=0; i<4; i++){
+		for (int i=0; i<handGame.length; i++){
 			if(Cards.contains(handGame[i]) ){
 				this.valida = false;
 				this.handGame = new String [1] ;

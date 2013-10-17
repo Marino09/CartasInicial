@@ -19,7 +19,7 @@ public class HandListLinkedTest {
 		Hand mano = new Hand("3H 5H 10H AH","");
 		
 		hlist.add(mano);
-		assertTrue(hlist.getHead() != null);	
+		assertNotNull(hlist.getHead());	
 		assertTrue(hlist.getHead().handToString().equals("3H 5H 10H AH"));	
 	}
 	
@@ -46,7 +46,9 @@ public class HandListLinkedTest {
 		
 		hlist.Clear();
 		
-		assertTrue(hlist.getHead() == null && hlist.getTail() == null);
+		assertNull(hlist.getHead());
+		assertNull(hlist.getTail());
+
 	}
 
 }

@@ -179,12 +179,12 @@ public class AnotadorCartas extends JFrame {
                 	if (actual.getNext() == null) {
                 		redoBut.setEnabled(false);
                 	}
-                	else{
+                	
                     	actualScore += actual.getHand().getScoreHand();
                     	scoreActual.setText(Integer.toString(actual.getHand().getScoreHand()));
                     	scoreNow.setText(Integer.toString(actualScore));
                     	combinacion.setText(actual.getHand().getTypeOfHand());
-                	}
+                	
                 }
 		}
 	}

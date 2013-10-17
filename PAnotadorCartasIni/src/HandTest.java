@@ -18,6 +18,7 @@ public class HandTest {
 		
 		TestHand = new Hand("3","");
 		assertFalse(TestHand.isValida());
+
 		
 		TestHand = new Hand("$dbnskwkw83.df","4D KS 8D AD 3H 5H 10H AH");
 		assertFalse(TestHand.isValida());

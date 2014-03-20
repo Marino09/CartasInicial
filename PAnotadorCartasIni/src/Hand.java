@@ -9,15 +9,13 @@ public class Hand {
 	private String [] handGame = new String[4];
 	private int scoreHand;
 	private boolean valida = true;
-	private String typeOfHand = ""; 
-	
+	private String typeOfHand = ""; 	
 	public Hand (String handGame, String cards)
 	{
 		this.handGame = handGame.split(" ");
 		validate(cards);
 		setScore();
 	}
-	
 	private void validate(String Cards)
 	{
 		String HandGame = StringUtils.join(handGame, " ");
